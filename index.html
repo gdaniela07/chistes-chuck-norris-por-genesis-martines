@@ -3,89 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title > Perfil Personal </title>
+    <title>Chistes de Chuck Norris</title>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            color:#dd2e8c;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #ffe6f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background: #fff0f5; /* Rosa claro */
+            padding: 25px 45px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2); /* Sombra rosada */
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid #ff69b4; /* Borde rosa intenso */
+        }
+        
+        h1 {
+            color: #ff1493; /* Rosa oscuro */
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px #ffc0cb;
+        }
+        
+        #boton-chiste {
+            background-color: #ff69b4; /* Rosa fuerte */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        
+        #boton-chiste:hover {
+            background-color: #ff1493; 
+            transform: scale(1.05);
+        }
+        
+        .cartaChiste {
+            margin-top: 30px;
+            padding: 25px;
+            border: 2px dashed #ffb6c1;
+            border-radius: 10px;
+            background-color: #fffaf0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .cartaChiste p {
+            margin: 0;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-    <h1 align="center"><font color="rosybrown">⋆౨ৎ⟡˖ Mi ࣪Perfil Personal ⊹˙♡﹗</font> </h1>
-    <table width="100%">
-        <tr align="center">
-            <td>
-                <img src="img/foto.jpeg" align="center" width="auto" height="300px">          
-            </td>
-        </tr>
-    </table>
 
+    <div class="container">
+        <h1>Chistes de Chuck Norris ୨ৎ</h1>
+        <p>Da click en el botón para generar un chiste de Chuck Norris.</p>
+        <button id="boton-chiste">Generar chiste</button>
+        <div id="contenedor-chiste" class="cartaChiste">
 
-&nbsp    
-<table border="1" width="80%" cellspacing="0" align="center" cellpadding="4">
-    <tr bgcolor="lightpink">
-        <th colspan="2" align="center"><font size="4">Informacion Personal</font> </th>
+        </div>
+    </div>
 
-    </tr>
-    <tr bgcolor="oldlace">
-        <td>Nombre: </td>
-        <td>Genesis Daniela Martinez Maldonado</td>
-    </tr>
-    <tr bgcolor="oldlace">
-        <td>Edad:</td>
-        <td>17 años</td>
-    </tr>
-    <tr bgcolor="oldlace">
-        <td>Domicilio:</td>
-        <td>Barrio Torondon, Comayagua</td>
-    </tr>
-    <tr bgcolor="oldlace">
-        <td>Profesion:</td>
-        <td>Estudiante</td>
-    </tr>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const botonChiste = document.getElementById('boton-chiste');
+            const contenedorChiste = document.getElementById('contenedor-chiste');
 
-</table>
-
-&nbsp;
-
-<table border="1" width="80%" cellspacing="0" align="center" cellpadding="4">
-    <tr align="center" >
-        <th colspan="2" bgcolor="lightblue"><font size="4">Talentos e Intereses</font></th>
-    </tr>
-    <tr align="center" bgcolor="aliceblue"><font size="3">
-        <th>Talentos</th>
-        <th>Intereres</th>
-    </font>
-    </tr>
-    <tr align="center" bgcolor="ghostwhite">
-        <td>Dibujar</td>
-        <td> Musica</td>
-    </tr>
-    <tr align="center" bgcolor="ghostwhite">
-        <td> Cantar</td>
-        <td> Viajes</td>
-    </tr>
-    <tr align="center" bgcolor="ghostwhite">
-        <td>Bailar</td>
-        <td>Diseño</td>
-    </tr>
-    <tr align="center" bgcolor="ghostwhite">
-        <td>Matematicas</td>
-        <td>Idiomas</td>
-    </tr>
-    <tr align="center" bgcolor="ghostwhite">
-        <td>Escritura</td>
-        <td>Fotografia</td>
-    </tr>
-</table> 
-
-&nbsp;
-
-<table  width="80%" cellspacing="0" cellpadding="5"align="center">
-    <tr>
-        <th align="center"><font size="4"> Mis redes sociales !! ✩ </font></th>
-    </tr>
-    <tr align="center" bgcolor="lightgray">
-        <td><a href="https://www.instagram.com/">Instagram</a> |
-        <a href="https://www.tiktok.com/">Tiktok</a> |
-        <a href="https://www.facebook.com/">Facebook</a> </td>
-    </tr>
-</table>
-    
+            botonChiste.addEventListener('click', () => {
+                fetch('https://api.chucknorris.io/jokes/random')
+                .then(respuesta => respuesta.json())
+                .then(datos => {
+                    contenedorChiste.innerHTML = `<p>${datos.value}</p>`;
+                })
+                .catch(() => {
+                    contenedorChiste.innerHTML = '<p>Lo siento, no se pudo cargar el chiste.</p>';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
