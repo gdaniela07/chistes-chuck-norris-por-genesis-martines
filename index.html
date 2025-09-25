@@ -1,108 +1,344 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chistes de Chuck Norris</title>
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            color:#dd2e8c;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #ffe6f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .container {
-            text-align: center;
-            background: #fff0f5; 
-            padding: 25px 45px;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2); 
-            max-width: 600px;
-            width: 100%;
-            border: 2px solid #ff69b4;
-        }
-        
-        h1 {
-            color: #ff1493;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px #ffc0cb;
-        }
-        
-        #boton-chiste {
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 25px;
-            transition: background-color 0.3s ease, transform 0.2s;
-        }
-        
-        #boton-chiste:hover {
-            background-color: #ff1493; 
-            transform: scale(1.05);
-        }
-        
-        .cartaChiste {
-            margin-top: 30px;
-            padding: 25px;
-            border: 2px dashed #ffb6c1;
-            border-radius: 10px;
-            background-color: #fffaf0;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-            text-align: left;
-            font-size: 1.1em;
-        }
-        
-        .cartaChiste p {
-            margin: 0;
-            line-height: 1.6;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pokédex</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: rgb(196, 88, 106);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    h2 {
+      color: #fff;
+    }
+
+    header {
+      background: pink;
+      padding: 20px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 34px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    header p {
+      font-size: 14px;
+      color: #ffe5e5;
+    }
+
+    .search-bar {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    input[type="search"] {
+      padding: 12px 14px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      width: 260px;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 25px;
+      padding: 12px 18px;
+      transition: 0.25s;
+    }
+
+    button.primary {
+      background: #fff;
+      color: #ef5350;
+    }
+
+    button.primary:hover {
+      background: #ffe5e5;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
+    button.secondary:hover {
+      background: #fff;
+      color: #ef5350;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+    }
+
+    nav.sidebar {
+      width: 220px;
+      background: rgb(223, 109, 128);
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    nav.sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .page-btn {
+      background: rgb(163, 52, 70);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .page-btn:hover {
+      background: rgb(131, 42, 57);
+    }
+
+    .page-btn.active {
+      background: rgb(131, 42, 57);
+    }
+
+    .dots {
+      color: #cbd5e1;
+      text-align: center;
+    }
+
+    section.content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      color: #1e293b;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      padding: 14px;
+      text-align: center;
+      transition: transform 0.25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      cursor: pointer;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: capitalize;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+      }
+
+      nav.sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .page-btn {
+        flex: 1;
+        white-space: nowrap;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Chistes de Chuck Norris ୨ৎ</h1>
-        <p>Da click en el botón para generar un chiste de Chuck Norris.</p>
-        <button id="boton-chiste">Generar chiste</button>
-        <div id="contenedor-chiste" class="cartaChiste">
-
-        </div>
+  <header>
+    <h1>Pokédex</h1>
+    <div class="search-bar">
+      <input id="searchInput" type="search" placeholder="Escribe un nombre...">
+      <button id="resetBtn" class="secondary">Borrar</button>
     </div>
+  </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const botonChiste = document.getElementById('boton-chiste');
-            const contenedorChiste = document.getElementById('contenedor-chiste');
+  <main>
+    <nav class="sidebar">
+      <h2>Paginación</h2>
+      <div id="pagination"></div>
+    </nav>
+    <section class="content" id="list"></section>
+  </main>
 
-            botonChiste.addEventListener('click', () => {
-                fetch('https://api.chucknorris.io/jokes/random')
-                .then(respuesta => respuesta.json())
-                .then(datos => {
-                    contenedorChiste.innerHTML = `<p>${datos.value}</p>`;
-                })
-                .catch(() => {
-                    contenedorChiste.innerHTML = '<p>Lo siento, no se pudo cargar el chiste.</p>';
-                });
-            });
+  
+
+  <script>
+    const LIMIT = 20;
+    let offset = 0;
+    let totalCount = 0;
+    let allPokemon = [];
+    let filteredPokemon = [];
+
+    const listEl = document.getElementById('list');
+    const paginationEl = document.getElementById('pagination');
+    const searchInput = document.getElementById('searchInput');
+    const resetBtn = document.getElementById('resetBtn');
+
+    async function fetchAllPokemon() {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0`);
+      const data = await res.json();
+      allPokemon = data.results.map((p, i) => ({ ...p, id: i + 1 }));
+      filteredPokemon = allPokemon;
+      totalCount = filteredPokemon.length;
+      renderPage();
+    }
+
+    async function renderPage() {
+      listEl.innerHTML = '';
+      const pageData = filteredPokemon.slice(offset, offset + LIMIT);
+
+      for (const p of pageData) {
+        const d = await fetch(p.url).then(x => x.json());
+        const img = d.sprites.other['official-artwork'].front_default || d.sprites.front_default;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const imgEl = document.createElement('img');
+        imgEl.src = img;
+        imgEl.alt = p.name;
+        imgEl.addEventListener('click', () => window.open(img, '_blank'));
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'name';
+        nameEl.textContent = p.name;
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = `#${p.id}`;
+
+        card.append(imgEl, nameEl, meta);
+        listEl.appendChild(card);
+      }
+      renderPagination();
+    }
+
+    function renderPagination() {
+      paginationEl.innerHTML = '';
+      const pages = Math.ceil(totalCount / LIMIT);
+      const currentPage = Math.floor(offset / LIMIT) + 1;
+
+      function addPageBtn(p) {
+        const btn = document.createElement('div');
+        btn.className = 'page-btn';
+        btn.textContent = `Página ${p}`;
+        if (p === currentPage) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          offset = (p - 1) * LIMIT;
+          renderPage();
         });
-    </script>
+        paginationEl.appendChild(btn);
+      }
+
+      if (currentPage > 1) {
+        const prev = document.createElement('div');
+        prev.className = 'page-btn';
+        prev.textContent = `‹ Página ${currentPage - 1}`;
+        prev.addEventListener('click', () => {
+          offset = (currentPage - 2) * LIMIT;
+          renderPage();
+        });
+        paginationEl.appendChild(prev);
+      }
+
+      for (let p = 1; p <= pages; p++) {
+        if (p === 1 || p === pages || (p >= currentPage - 2 && p <= currentPage + 2)) {
+          addPageBtn(p);
+        } else if (p === 2 || p === pages - 1) {
+          const dots = document.createElement('div');
+          dots.className = 'dots';
+          dots.textContent = '...';
+          paginationEl.appendChild(dots);
+        }
+      }
+
+      if (currentPage < pages) {
+        const next = document.createElement('div');
+        next.className = 'page-btn';
+        next.textContent = `Página ${currentPage + 1} ›`;
+        next.addEventListener('click', () => {
+          offset = currentPage * LIMIT;
+          renderPage();
+        });
+        paginationEl.appendChild(next);
+      }
+    }
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      filteredPokemon = allPokemon.filter(p => p.name.includes(q));
+      totalCount = filteredPokemon.length;
+      offset = 0;
+      renderPage();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      filteredPokemon = allPokemon;
+      totalCount = filteredPokemon.length;
+      offset = 0;
+      renderPage();
+    });
+
+    fetchAllPokemon();
+  </script>
 </body>
 </html>
+
 
